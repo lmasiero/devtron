@@ -7,6 +7,31 @@ metadata:
     release: devtron
 type: Opaque
 ---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-postgresql
+  namespace: devtroncd
+spec:
+ ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: postgresql-postgresql
+  namespace: devtroncd
+subsets:
+  - addresses:
+    - ip: 10.119.94.117
+    ports:
+    - port: 5432
+
+--- 
+
 # Source: devtron/templates/configmap.yaml
 apiVersion: v1
 kind: ConfigMap
@@ -128,6 +153,10 @@ spec:
       targetPort: devtron
       protocol: TCP
       name: devtron
+    - port: 443
+      targetPort: devtron
+      protocol: TCP
+      name: devtron-ingress
   selector:
     app: devtron
 ---
