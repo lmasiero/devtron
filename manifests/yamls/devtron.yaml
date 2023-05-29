@@ -19,6 +19,7 @@ spec:
       port: 5432
       targetPort: 5432
 ---
+#TODO: make sure the RDS IP is correct all the times.
 apiVersion: v1
 kind: Endpoints
 metadata:
@@ -26,12 +27,11 @@ metadata:
   namespace: devtroncd
 subsets:
   - addresses:
-    - ip: 10.119.94.117
+    - ip: 10.119.94.123 
     ports:
     - port: 5432
 
 --- 
-
 # Source: devtron/templates/configmap.yaml
 apiVersion: v1
 kind: ConfigMap
